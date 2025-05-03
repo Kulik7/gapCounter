@@ -1,12 +1,13 @@
 version: 1.2
- workflows:
- name: gap_counter_parallel
-   subclass: WDL
-   primaryDescriptorPath:/gap_counter_parallel.wdl
-   testParameterFiles:
-     - /test/test_input_parallel.json
- name: gap_length_counter
-   subclass: WDL
-   primaryDescriptorPath:/gap_length_counter.wdl
-   testParameterFiles:
-     - /test/test_input_basic.json
+workflows:
+  - name: gap_counter_parallel
+    subclass: WDL
+    primaryDescriptorPath: /gap_counter_parallel.wdl
+    testParameterFiles:
+      - /test/test_input_parallel.json
+
+  - name: gap_length_counter
+    subclass: WDL
+    primaryDescriptorPath: /gap_length_counter.wdl
+    testParameterFiles:
+      - /test/test_input_basic.json
