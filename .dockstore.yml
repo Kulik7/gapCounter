@@ -1,0 +1,12 @@
+version: 1.2
+ workflows:
+ name: hello_world
+   subclass: WDL
+   primaryDescriptorPath:/gap_counter_parallel.wdl
+   testParameterFiles:
+     - /test/test_input_parallel.json
+ name: hello_world
+   subclass: WDL
+   primaryDescriptorPath:/gap_length_counter.wdl
+   testParameterFiles:
+     - /test/test_input_basic.json
