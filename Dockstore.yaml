@@ -1,7 +1,0 @@
-version: 1.2
-workflows:
-  - subclass: WDL
-    name: count_gaps_parallel
-    primaryDescriptorPath: count_gaps_parallel.wdl
-    testParameterFiles:
-      - input.json
