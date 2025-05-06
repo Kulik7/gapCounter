@@ -22,9 +22,9 @@ task GrepCountNs {
 
   command <<< 
     if [[ "~{fasta_file}" == *.gz ]]; then
-      gzip -cd "~{fasta_file}" | grep -v "^>" | tr -d -c 'Nn' | wc -c > gaps.txt
+      gzip -cd "~{fasta_file}" | grep -v "^>" | tr -d -c 'Nn' | wc -c > gap_length.txt
     else
-      cat "~{fasta_file}" | grep -v "^>" | tr -d -c 'Nn' | wc -c > gaps.txt
+      cat "~{fasta_file}" | grep -v "^>" | tr -d -c 'Nn' | wc -c > gap_length.txt
     fi
   >>>
 
