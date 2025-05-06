@@ -30,8 +30,23 @@ task split_fasta {
   }
 
   command <<< 
-    awk '/^>/{if(f){close(f)} f=substr($0,2)".fa"} {print > f}' ~{fasta}
-    ls *.fa > file_list.txt
+  set -e
+  if [[ "~{fasta}" == *.gz ]]; then
+    gzip -cd "~{fasta}" > uncompressed.fa
+  else
+    cp "~{fasta}" uncompressed.fa
+  fi
+
+  awk '
+    /^>/ {
+      file = sprintf("seq_%04d.fa", ++i)
+    }
+    {
+      print > file
+    }
+  ' uncompressed.fa
+
+  ls seq_*.fa > file_list.txt
   >>>
 
   output {

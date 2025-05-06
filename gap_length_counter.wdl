@@ -20,9 +20,13 @@ task GrepCountNs {
     File fasta_file
   }
 
-  command {
-    grep -v "^>" ~{fasta_file} | grep -o "N" | wc -l > gap_length.txt
-  }
+  command <<< 
+    if [[ "~{fasta_file}" == *.gz ]]; then
+      gzip -cd "~{fasta_file}" | grep -v "^>" | tr -d -c 'Nn' | wc -c > gaps.txt
+    else
+      cat "~{fasta_file}" | grep -v "^>" | tr -d -c 'Nn' | wc -c > gaps.txt
+    fi
+  >>>
 
   output {
     Int total_gaps = read_int("gap_length.txt")
