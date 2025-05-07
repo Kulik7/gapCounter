@@ -31,17 +31,18 @@ task split_fasta {
 
   command <<<
     set -e
-    mkdir split_seqs
+    mkdir splitted_fa
     if [[ "~{fasta}" == *.gz ]]; then
-      gzip -cd "~{fasta}" | awk '/^>/ {f="split_seqs/seq"++i".fa"} {print > f}'
+      gzip -cd "~{fasta}" | awk '/^>/ {f="splitted_fa/seq"++i".fa"} {print > f}'
     else
-      cat "~{fasta}" | awk '/^>/ {f="split_seqs/seq"++i".fa"} {print > f}'
+      cat "~{fasta}" | awk '/^>/ {f="splitted_fa/seq"++i".fa"} {print > f}'
     fi
-    ls split_seqs/*.fa > file_list.txt
+    ls splitted_fa/*.fa > file_list.txt
   >>>
 
   output {
-    Array[File] output_files = read_lines("file_list.txt")
+    Array[File] output_files = glob("splitted_fa/seq*.fa")
+    # File list = "file_list.txt"
   }
 
   runtime {
